@@ -1,0 +1,28 @@
+@model CbsStudents.Models.Entities.Comment
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h4>Edit comment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CommentId"/>
+            <input type="hidden" asp-for="Created"/>
+            <input type="hidden" asp-for="PostId"/>
+            <input type="hidden" asp-for="UserId"/>
+            @await Html.PartialAsync("_CreateEditPartial")
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-secondary" asp-controller="Post" asp-action="Details" asp-route-id="@Model.PostId">Back to Post</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

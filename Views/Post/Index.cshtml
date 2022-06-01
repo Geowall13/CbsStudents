@@ -1,0 +1,59 @@
+@model CbsStudents.Models.Entities.PostIndexVm
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All posts</h1>
+<form asp-controller="Post" asp-action="Index" method="get">
+    <p>
+        Title: <input type="text" name="SearchString" value=@Model.SearchString />
+        <input class="btn btn-secondary" type="submit" value="Filter"/>
+    </p>
+</form>
+
+<a class="btn btn-primary" asp-action="Create">Create new post</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Posts.FirstOrDefault().Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Posts.FirstOrDefault().Text)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Posts.FirstOrDefault().Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Posts.FirstOrDefault().Status)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var post in Model.Posts) {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@post.PostId">@Html.DisplayFor(x => post.Title) </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(x => post.Text)
+                </td>
+                <td>
+                    @Html.DisplayFor(x => post.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(x => post.Status)
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@post.PostId">Edit</a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@post.PostId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
